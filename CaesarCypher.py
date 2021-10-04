@@ -4,18 +4,42 @@ direction = input("Type 'encode' to encrypt, type 'decode' to decrypt:\n")
 text = input("Type your message:\n").lower()
 shift = int(input("Type the shift number:\n"))
 
-#TODO-1: Create a function called 'encrypt' that takes the 'text' and 'shift' as inputs.
 
-    #TODO-2: Inside the 'encrypt' function, shift each letter of the 'text' forwards in the alphabet by the shift amount and print the encrypted text.
-    #e.g.
-    #plain_text = "hello"
-    #shift = 5
-    #cipher_text = "mjqqt"
-    #print output: "The encoded text is mjqqt"
+def encrypt(text_to_encode, nr_shifts):
+    encoded = ''
+    text_array = list(text_to_encode)
+    for i in range(0, text_array.__len__()):
+        current_index = alphabet.index(text_array[i])
+        if current_index + nr_shifts < alphabet.__len__():
+            text_array[i] = alphabet[current_index + nr_shifts]
+        else:
+            shifter = current_index + nr_shifts - alphabet.__len__()
+            text_array[i] = alphabet[shifter]
+    encoded = "".join(text_array)
+    return encoded
 
-    ##HINT: How do you get the index of an item in a list:
-    #https://stackoverflow.com/questions/176918/finding-the-index-of-an-item-in-a-list
 
-    ##🐛Bug alert: What happens if you try to encode the word 'civilization'?🐛
 
-#TODO-3: Call the encrypt function and pass in the user inputs. You should be able to test the code and encrypt a message. 
+
+
+def decrypt(text_to_decode, nr_unshifts):
+    decoded = ''
+    text_array = list(text_to_decode)
+    for i in range(0, text_array.__len__()):
+        current_index = alphabet.index(text_array[i])
+        text_array[i] = alphabet[current_index - nr_unshifts]
+
+    decoded = "".join(text_array)
+    return decoded
+
+
+def main(direct):
+    if direct == 'encrypt':
+        return encrypt(text, shift)
+    return decrypt(text, shift)
+
+
+print(main(direction))
+
+
+
